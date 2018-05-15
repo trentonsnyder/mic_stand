@@ -1,0 +1,17 @@
+<div class="unauthorized-container">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+
+    <%= f.label :email %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+
+    <label for="password">Password (<%= @minimum_password_length %>)</label> 
+    <%= f.password_field :password, autocomplete: "off", id: "password" %>
+
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <div>
+      <%= f.submit "Sign up", class: "primary" %>
+    </div>
+  <% end %>
+</div>
