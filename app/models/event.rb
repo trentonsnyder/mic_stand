@@ -17,4 +17,16 @@ class Event < ApplicationRecord
   validates :duration,
     presence: true,
     numericality: { greater_than: 0, less_than_or_equal_to: 86400 }
+
+  def formatted_expiry
+    session_expiry.strftime("%D %r")
+  end
+
+  def time_left
+    if self.session_expiry < Time.current
+      "Expired"
+    else
+      Time.zone.at(self.session_expiry.to_i - Time.current.to_i).utc.strftime("%H:%M:%S")
+    end
+  end
 end

@@ -10,4 +10,7 @@ class Message < ApplicationRecord
     uniqueness: { scope: :event },
     length: { minimum: 7, maximum: 15 }
 
+  def from_formatted
+    from.phony_formatted(format: :international, spaces: '-')
+  end
 end

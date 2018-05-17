@@ -1,0 +1,18 @@
+<h1><%= @event.name %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Phone</th>
+      <th>Message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @messages.each do |m| %>
+      <tr>
+        <td><%= m.from_formatted %></td>
+        <td><%= m.body %></td>
+      </tr>
+    <% end%>
+  </tbody>
+</table>

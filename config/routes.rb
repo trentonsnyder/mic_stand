@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   authenticated :user do
     root 'events#index', as: :authenticated_root
+
+    resources :events, only: [:index, :show, :create]
   end
 
   root "home#landing"

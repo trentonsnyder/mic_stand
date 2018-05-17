@@ -8,4 +8,8 @@ class PhoneNumber < ApplicationRecord
     uniqueness: true,
     presence: true,
     length: { maximum: 12 }
+
+  def phone_formatted
+    phone_number.phony_formatted(format: :international, spaces: '-')
+  end
 end
