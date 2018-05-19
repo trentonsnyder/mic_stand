@@ -1,0 +1,17 @@
+.centered-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  form {
+    width: 80%;
+    max-width: 500px;
+    div {
+      input {
+        width: 100%;
+      }
+      select {
+        width: 100%;
+      }
+    }
+  }
+}

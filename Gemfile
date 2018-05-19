@@ -14,6 +14,7 @@ gem 'paranoia',      '~> 2.1', '>= 2.1.5'
 gem 'phony_rails',   '~> 0.14.2'
 gem 'puma',          '~> 3.11'
 gem 'sass-rails',    '~> 5.0'
+gem 'simple_form',   '~> 4.0.1'
 gem 'turbolinks',    '~> 5'
 gem 'uglifier',      '>= 1.3.0'
 

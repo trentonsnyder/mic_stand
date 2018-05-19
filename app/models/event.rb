@@ -16,7 +16,15 @@ class Event < ApplicationRecord
   # 86400 = secs in a day
   validates :duration,
     presence: true,
-    numericality: { greater_than: 0, less_than_or_equal_to: 86400 }
+    numericality: { greater_than: 0, less_than_or_equal_to: 86_400 }
+
+  def self.expired
+    where("session_expiry < ?", Time.current)
+  end
+  
+  def self.current
+    where("session_expiry > ?", Time.current)
+  end
 
   def formatted_expiry
     session_expiry.strftime("%D %r")

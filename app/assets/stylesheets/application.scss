@@ -3,3 +3,24 @@
 @import 'skeleton';
 @import 'navigation';
 @import 'unauthorized';
+@import 'forms';
+@import 'headings';
+
+div.page-container {
+  display: flex;
+  justify-content: center;
+  .one-column {
+    width: 90%;
+    max-width: 750px;
+    div.card {
+      margin: 20px 0px 20px 0px;
+      padding: 15px;
+      border-radius: 4px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+}
