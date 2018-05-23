@@ -2,7 +2,7 @@
 <div class="centered-form">
   <%= simple_form_for @event do |f| %>
     <%= f.input :name %>
-    <%= f.input :duration, collection: 1..5, label: "Duration (hours)" %>
+    <%= f.input :duration, collection: Event.duration_options, label: "Duration (hours)" %>
     <%= f.submit "Create", class: "primary" %>
   <% end %>
 </div>

@@ -11,4 +11,12 @@ class User < ApplicationRecord
   validates :role,
     presence: true,
     inclusion: { in: %w(user admin) }
+  
+  def available_credits
+    self.credits.where("credits.id NOT IN (SELECT credit_id FROM events WHERE user_id = ? AND id IS NOT NULL)", self.id)
+  end
+
+  def spent_credits
+    self.credits.joins(:event)
+  end
 end

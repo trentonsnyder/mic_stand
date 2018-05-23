@@ -4,10 +4,10 @@
       <% if @events.count.zero? %>
         <h4 class="centered-heading">Welcome!</h4>
         <p>Let's get you some (free?) credits to get you started! [free credit button woot]</p>
-        <%# <%= link_to "Get Credits", new_credit_path, class: "button" %>
+        <%= link_to "Get Credits", new_purchase_path, class: "button" %>
       <% else %>
         <h4 class="centered-heading">Events</h4>
-        <%# <%= link_to "Get Credits", new_credit_path, class: "button" %>
+        <%= link_to "Get Credits", new_purchase_path, class: "button" %>
         <%= link_to "New Event", new_event_path, class: "button primary" %>
       <% end %>
     </div>
@@ -45,18 +45,18 @@
           <thead>
             <tr>
               <th>Name</th>
+              <th>Duration</th>
               <th>Date</th>
               <th>Expiration</th>
-              <th>Duration</th>
             </tr>
           </thead>
           <tbody>
             <% @events.expired.each do |e| %>
               <tr>
                 <td><%= link_to e.name, event_path(e) %></td>
+                <td><%= Time.zone.at(e.duration).utc.strftime("%H:%M:%S") %></td>
                 <td><%= e.created_at.strftime("%D") %></td>
                 <td><%= e.formatted_expiry %></td>
-                <td><%= Time.zone.at(e.duration).utc.strftime("%H:%M:%S") %></td>
               </tr>
             <% end %>
           </tbody>

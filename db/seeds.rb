@@ -26,7 +26,7 @@ def generate_messages(event)
 end
 
 def generate_event(user)
-  credit = user.credits.first
+  credit = user.available_credits.last
   event = user.events.create(
     name: Faker::Pokemon.name,
     phone_number_id: PhoneNumber.all.sample.id,
@@ -38,7 +38,7 @@ def generate_event(user)
 end
 
 def generate_current_event(user)
-  credit = user.credits.first
+  credit = user.available_credits.first
   duration = random_duration()
   event = user.events.create(
     name: Faker::Pokemon.name,
@@ -58,11 +58,11 @@ phone_bank.each { |phone| PhoneNumber.create(phone_number: phone) }
 purchase1 = user.purchases.create(worth: 7)
 purchase2 = user.purchases.create(worth: 1)
 
-coupon1 = Coupon.create(worth: 1)
-coupon2 = Coupon.create(worth: 2)
-coupon3 = Coupon.create(worth: 3)
+Coupon.new(worth: 1).register
+Coupon.new(worth: 2).register
+Coupon.new(worth: 3).register
 
-Coupon.claim(user, coupon2.code)
+Coupon.claim(user, Coupon.first.code)
 
 # passed events
 generate_event(user)

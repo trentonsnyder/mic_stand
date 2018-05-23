@@ -11,6 +11,6 @@ class Message < ApplicationRecord
     length: { minimum: 7, maximum: 15 }
 
   def from_formatted
-    from.phony_formatted(format: :international, spaces: '-')
+    from.phony_formatted(format: :international, spaces: "-")
   end
 end

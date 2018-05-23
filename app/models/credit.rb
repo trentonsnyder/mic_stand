@@ -3,12 +3,17 @@ class Credit < ApplicationRecord
   belongs_to :purchase, optional: true
   belongs_to :coupon, optional: true
 
+  has_one :event
+
   validates :identifier,
     presence: true
   
   validate :coupon_or_purchase
 
-  before_validation :generate_identifier
+  def register
+    generate_identifier
+    save
+  end
 
   private
 
@@ -19,6 +24,8 @@ class Credit < ApplicationRecord
   def coupon_or_purchase
     if coupon_id == nil && purchase_id == nil
       errors.add(:base, "Must have coupon or purchase")
+    elsif coupon_id != nil && purchase_id != nil
+      errors.add(:base, "Cannot be claimed and purchased")
     end
   end
 end

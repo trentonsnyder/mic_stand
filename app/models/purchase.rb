@@ -12,8 +12,11 @@ class Purchase < ApplicationRecord
   private
 
   def generate_credits
-    worth.times do
-      credits.create(user_id: user_id)
+    Credit.transaction do
+      worth.times do
+        credit = credits.new(user_id: user_id)
+        credit.register
+      end
     end
   end
 end
