@@ -1,4 +1,7 @@
+//= require jquery
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
-//= require_tree .
+//= require init
+//= require navigation
+//= require flash

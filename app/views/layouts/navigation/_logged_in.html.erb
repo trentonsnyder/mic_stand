@@ -1,8 +1,16 @@
-  <div class="navigation">
-    <div>
-    </div>
-    <div class="section">
+<div class="navbar">
+  <div class="navbar-link navbar-link-brand">
+    Manatee MC
+  </div>
+  <div class="navbar-link navbar-link-toggle" data-behavior="toggle-nav" }>
+    <p class="fas fa-bars">WHAYT</p>
+  </div>
+  <nav class="navbar-items navbar-items-right">
+    <div class="navbar-link">
       <%= link_to('Events', root_path) %>
+    </div>
+    <div class="navbar-link">
       <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
     </div>
-  </div>
+  </nav>
+</div>

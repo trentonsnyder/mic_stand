@@ -4,21 +4,25 @@ class Coupon < ApplicationRecord
 
   validates :code,
     presence: true
-  
+
   validates :worth,
     presence: true,
     numericality: { greater_than: 0, less_than_or_equal_to: 10 }
-  
-  def self.unclaimed
-    Coupon.where("id NOT IN (SELECT coupon_id FROM credits WHERE purchase_id IS NULL GROUP BY coupon_id)")
+
+  def self.claimed(user_id)
+    Coupon.where("id IN (SELECT coupon_id
+                          FROM credits 
+                          WHERE purchase_id IS NULL 
+                          AND user_id = ? 
+                          GROUP BY coupon_id
+                        )", user_id)
   end
-  
-  def self.claim(user, code)
-    validate = CouponCode.validate(code, PARTS)
-    coupon = Coupon.find_by(code: validate)
-    if coupon && !coupon.claimed?
-      coupon.generate_credits(user)
-    end
+
+  def self.unclaimed
+    Coupon.where("id NOT IN (SELECT coupon_id 
+                              FROM credits
+                              WHERE purchase_id IS NULL
+                              GROUP BY coupon_id)")
   end
 
   def generate_credits(user)

@@ -1,0 +1,7 @@
+<h1 class="centered-heading">Claim Coupon</h1>
+<div class="centered-form">
+  <%= simple_form_for @claim_coupon do |f| %>
+    <%= f.input :code, as: :string %>
+    <%= f.submit "Claim", class: "primary" %>
+  <% end %>
+</div>

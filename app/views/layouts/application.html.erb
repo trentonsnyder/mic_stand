@@ -5,15 +5,22 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application' %>
+    <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
-  <!-- 
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-  -->
+    <% if flash[:success] %>
+      <div class="success-flash" id="success-flash" data-behavior="dismiss-success-flash">
+        <%= flash[:success] %>
+      </div>
+    <% end %>
+    <% if flash[:error] %>
+      <div class="error-flash" id="error-flash" data-behavior="dismiss-error-flash">
+        <%= flash[:error] %>
+      </div>
+    <% end %>
+
     <% if user_signed_in?  %> 
       <%= render 'layouts/navigation/logged_in' %>
     <% else %>
