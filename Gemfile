@@ -10,6 +10,7 @@ gem 'awesome_print', '~> 1.8'
 gem 'bootsnap',      '>= 1.1.0', require: false
 gem 'coupon_code',   '~> 0.0.1'
 gem 'devise',        '~> 4.2'
+gem 'httparty',      '~> 0.16.2'
 gem 'jquery-rails'
 gem 'paranoia',      '~> 2.1', '>= 2.1.5'
 gem 'phony_rails',   '~> 0.14.2'
