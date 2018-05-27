@@ -32,7 +32,8 @@ def generate_event(user)
     phone_number_id: PhoneNumber.all.sample.id,
     session_expiry: @time_ago_bank.sample,
     duration: random_duration(),
-    credit_id: credit.id
+    credit_id: credit.id,
+    broadcast_token: SecureRandom.urlsafe_base64(28)
   )
   generate_messages(event)
 end
@@ -43,9 +44,10 @@ def generate_current_event(user)
   event = user.events.create(
     name: Faker::Pokemon.name,
     session_expiry: Time.zone.at(Time.current.to_i + duration).utc,
-    phone_number_id: PhoneNumber.all.sample.id,
+    phone_number_id: PhoneNumber.find_available_id,
     duration: duration,
-    credit_id: credit.id
+    credit_id: credit.id,
+    broadcast_token: SecureRandom.urlsafe_base64(28)
   )
   generate_messages(event)
 end
@@ -62,7 +64,7 @@ Coupon.new(worth: 1).register
 Coupon.new(worth: 2).register
 Coupon.new(worth: 3).register
 
-Coupon.claim(user, Coupon.first.code)
+ClaimCoupon.new(code: Coupon.first.code).register(user)
 
 # passed events
 generate_event(user)

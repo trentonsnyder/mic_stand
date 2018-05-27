@@ -10,7 +10,8 @@ class PhoneNumber < ApplicationRecord
     length: { maximum: 12 }
 
   def self.find_available_id
-    where("id NOT IN (?)", current_session_ids).first.try(:id)
+    # can't pass NULL or "" into IN clause in postgres
+    where("id NOT IN (?)", PhoneNumber.current_session_ids.presence || 0).first.try(:id)
   end
 
   def self.current_session_ids

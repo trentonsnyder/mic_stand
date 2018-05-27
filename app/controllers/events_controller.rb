@@ -1,8 +1,16 @@
 class EventsController < AuthorizedController
   def index
     @events = current_user.events
+                          .current
                           .includes(:phone_number)
                           .order("session_expiry desc")
+  end
+
+  def expired
+    @events = current_user.events
+                          .expired
+                          .includes(:phone_number)
+                          .order("created_at desc")
   end
 
   def show
@@ -19,10 +27,11 @@ class EventsController < AuthorizedController
   end
 
   def create
-    @event = current_user.events.new(event_params)
-    if @event.register
-      redirect_to events_path
-    else
+    begin
+      @event = current_user.events.new(event_params)
+      @event.register
+      redirect_to @event
+    rescue ActiveRecord::RecordInvalid
       render :new
     end
   end

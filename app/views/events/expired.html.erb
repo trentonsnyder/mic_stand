@@ -4,26 +4,25 @@
       <%= link_to "Get Credits", new_purchase_path, class: "button" %>
       <%= link_to "New Event", new_event_path, class: "button primary" %>
     </div>
-
     <% if @events.count.positive? %>
       <div class="card">
-        <h2 class="centered-heading">Current</h2>
+        <h2 class="centered-heading">Past Events</h2>
         <table>
           <thead>
             <tr>
               <th>Name</th>
-              <th>Phone</th>
               <th>Duration</th>
-              <th>Time Left</th>
+              <th>Date</th>
+              <th>Expiration</th>
             </tr>
           </thead>
           <tbody>
-            <% @events.current.each do |e| %>
+            <% @events.each do |e| %>
               <tr>
                 <td><%= link_to e.name, event_path(e) %></td>
-                <td><%= e.phone_number.phone_formatted %></td>
                 <td><%= Time.zone.at(e.duration).utc.strftime("%H:%M:%S") %></td>
-                <td><%= e.time_left %></td>
+                <td><%= e.created_at.strftime("%D") %></td>
+                <td><%= e.formatted_expiry %></td>
               </tr>
             <% end %>
           </tbody>

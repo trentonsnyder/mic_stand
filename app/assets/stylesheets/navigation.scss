@@ -1,29 +1,14 @@
-// .navigation {
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-//   padding-top: 20px;
-//   .section {
-//     display: flex;
-//     flex-direction: row;
-//     a {
-//       margin: 0px, 15px, 0px, 15px;
-//       width: 100px;
-//       text-align: center;
-//     }
-//   }
-// }
-
 .navbar {
   display: flex;
   padding: 16px;
 }
 .navbar-link {
   padding-right: 8px;
+  width: 100px;
+  text-align: center;
 }
 .navbar-items {
   display: flex;
-  width: 100px;
 }
 .navbar-items-right {
   margin-left: auto;

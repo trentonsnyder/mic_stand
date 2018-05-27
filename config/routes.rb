@@ -4,10 +4,13 @@ Rails.application.routes.draw do
   authenticated :user do
     root 'events#index', as: :authenticated_root
 
+    get 'events/expired',     to: "events#expired"
     resources :events,        only: [:index, :show, :new, :create]
     resources :purchases,     only: [:new]
     resources :claim_coupons, only: [:new, :create]
-  end
 
+  end
+  
+  get "broadcasts/:token",   to: "broadcasts#show"
   root "home#landing"
 end

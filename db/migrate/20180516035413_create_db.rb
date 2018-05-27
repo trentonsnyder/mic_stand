@@ -7,18 +7,18 @@ class CreateDb < ActiveRecord::Migration[5.2]
     add_index :phone_numbers, :deleted_at
 
     create_table :events do |t|
-      t.string     :name,           null: false
-      t.datetime   :session_expiry, null: false
-      t.integer    :duration,       null: false
-      t.belongs_to :user,           null: false
-      t.belongs_to :credit,         null: false
-      t.belongs_to :phone_number,   null: false
+      t.string     :name,            null: false
+      t.string     :broadcast_token, null: false
+      t.datetime   :session_expiry,  null: false
+      t.integer    :duration,        null: false
+      t.belongs_to :user,            null: false
+      t.belongs_to :credit,          null: false
+      t.belongs_to :phone_number,    null: false
       t.timestamps
     end
     add_index :events, :session_expiry
 
     create_table :credits do |t|
-      t.string     :identifier,  null: false
       t.belongs_to :user,        null: false
       t.belongs_to :coupon,      null: true
       t.belongs_to :purchase, null: true

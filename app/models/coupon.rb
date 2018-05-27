@@ -32,18 +32,17 @@ class Coupon < ApplicationRecord
   end
 
   def register
-    generate
-    save
+    tap do |coupon|
+      coupon.generate
+      coupon.save
+    end
   end
 
   def claimed?
     Credit.find_by(coupon_id: self.id)
   end
 
-  private
-
   def generate
     self.code = CouponCode.generate(parts: PARTS)
   end
-
 end

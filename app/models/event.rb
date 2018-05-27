@@ -15,6 +15,9 @@ class Event < ApplicationRecord
   validates :session_expiry,
     presence: true
 
+  validates :broadcast_token,
+    presence: true
+
   # duration is length of event in seconds
   # 86400 = secs in a day
   validates :duration,
@@ -38,6 +41,10 @@ class Event < ApplicationRecord
 
   def self.expired
     where("session_expiry < ?", Time.current)
+  end
+
+  def assign_broadcast_token
+    self.broadcast_token = SecureRandom.urlsafe_base64(28)
   end
 
   def assign_credit
@@ -64,10 +71,13 @@ class Event < ApplicationRecord
   end
 
   def register
-    assign_phone_number
-    assign_credit
-    assign_expiry
-    save
+    tap do |event|
+      event.assign_phone_number
+      event.assign_credit
+      event.assign_expiry
+      event.assign_broadcast_token
+      event.save!
+    end
   end
 
   def time_left

@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 2018_05_16_035413) do
   end
 
   create_table "credits", force: :cascade do |t|
-    t.string "identifier", null: false
     t.bigint "user_id", null: false
     t.bigint "coupon_id"
     t.bigint "purchase_id"
@@ -32,6 +31,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_035413) do
 
   create_table "events", force: :cascade do |t|
     t.string "name", null: false
+    t.string "broadcast_token", null: false
     t.datetime "session_expiry", null: false
     t.integer "duration", null: false
     t.bigint "user_id", null: false
