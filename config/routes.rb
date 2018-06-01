@@ -5,7 +5,13 @@ Rails.application.routes.draw do
     root 'events#index', as: :authenticated_root
 
     get 'events/expired',     to: "events#expired"
-    resources :events,        only: [:index, :show, :new, :create]
+    resources :events,        only: [:index, :show, :new, :create] do
+      resources :messages, only: [] do
+        member do
+          post "select"
+        end
+      end
+    end
     resources :purchases,     only: [:new]
     resources :claim_coupons, only: [:new, :create]
   end

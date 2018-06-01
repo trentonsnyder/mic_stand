@@ -1,19 +1,33 @@
 <h1><%= @event.name %></h1>
-<p>http://localhost:3000/broadcasts/<%= @event.broadcast_token %></p>
+<p><a href="http://localhost:3000/broadcasts/<%= @event.broadcast_token %>" target="_blank">http://localhost:3000/broadcasts/<%= @event.broadcast_token %></a></p>
+<p>send to someone (no login required) or open for yourself</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Phone</th>
-      <th>Message</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @messages.each do |m| %>
-      <tr>
-        <td><%= m.from_formatted %></td>
-        <td><%= m.body %></td>
-      </tr>
-    <% end%>
-  </tbody>
-</table>
+<div class="page-container">
+  <div class="one-column">
+    <% @messages.each do |message| %>
+      <div class="card">
+        <p class="card-content">
+          <%= message.body %>
+        </p>
+        <div class="card-action">
+          <% if message.selected.nil? %>
+            <%= link_to "Select",
+              select_event_message_path(@event.id, message.id),
+              class: "button",
+              method: :post,
+              remote: true
+            %>
+          <% else %>
+            <%= link_to "Asked",
+              select_event_message_path(@event.id, message.id),
+              class: "button primary",
+              method: :post,
+              remote: true,
+              data: { confirm: "Display message again?" }
+            %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_035413) do
   create_table "messages", force: :cascade do |t|
     t.text "body", null: false
     t.string "from", null: false
-    t.boolean "selected", default: false, null: false
+    t.datetime "selected"
     t.bigint "event_id", null: false
     t.index ["event_id"], name: "index_messages_on_event_id"
   end

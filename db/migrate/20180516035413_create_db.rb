@@ -35,10 +35,10 @@ class CreateDb < ActiveRecord::Migration[5.2]
     end
 
     create_table :messages do |t|
-      t.text       :body,                     null: false
-      t.string     :from,                     null: false
-      t.boolean    :selected, default: false, null: false
-      t.belongs_to :event,                    null: false
+      t.text       :body,     null: false
+      t.string     :from,     null: false
+      t.datetime   :selected
+      t.belongs_to :event,    null: false
     end
   end
 end

@@ -22,6 +22,15 @@ div.page-container {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      p.card-content {
+        text-align: center;
+        font-size: 25px;
+      }
+      div.card-action {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
     }
   }
 }
