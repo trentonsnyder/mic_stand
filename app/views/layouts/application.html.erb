@@ -9,7 +9,7 @@
     <%= javascript_include_tag 'application' %>
   </head>
 
-  <body>
+  <body class="<%= controller_name %> <%= action_name %>">
     <% if flash[:success] %>
       <div class="success-flash" id="success-flash" data-behavior="dismiss-success-flash">
         <%= flash[:success] %>
@@ -23,7 +23,7 @@
 
     <% if user_signed_in?  %> 
       <%= render 'layouts/navigation/logged_in' %>
-    <% else %>
+        <% else %>
       <%= render 'layouts/navigation/logged_out' %>
     <% end %>
 

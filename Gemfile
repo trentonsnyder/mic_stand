@@ -22,7 +22,7 @@ gem 'uglifier',      '>= 1.3.0'
 
 group :development, :test do
   gem 'dotenv-rails'
-  gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
+  gem 'faker', git: 'https://github.com/stympy/faker.git', branch: 'master'
   gem 'pry'
 end
 

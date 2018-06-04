@@ -2,6 +2,8 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
+//= require cable
 //= require init
 //= require navigation
 //= require flash
+//= require broadcast

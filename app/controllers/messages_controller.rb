@@ -4,6 +4,8 @@ class MessagesController < AuthorizedController
     message = event.messages.find(params[:id])
     if message
       message.update(selected: Time.current)
+      ActionCable.server.broadcast "broadcast_channel_#{event.broadcast_token}",
+        body:  message.body
     end
     head :ok
   end

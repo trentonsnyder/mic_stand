@@ -1,2 +1,6 @@
 <h1 class="centered-heading"><%= @event.name %></h1>
-<h1 class="centered-heading"><%= @event.phone_number.phone_number %></h1>
+<h1 class="centered-heading"><%= @event.phone_number.phone_formatted %></h1>
+<h1 class="centered-heading" id="current-message"></h1>
+
+<!-- This is used in js to subscribe to the right channel -->
+<div class="hidden" id="broadcast-token"><%= @event.broadcast_token %></div>
