@@ -1,0 +1,5 @@
+$("#message-button-<%= @message.id %>").addClass('primary');
+$("#message-button-<%= @message.id %>").text('Asked');
+$("#message-button-<%= @message.id %>").attr('data-confirm', "Display message again?");
+$("#message-button-<%= @message.id %>").removeAttr('data-behavior');
+$("#message-button-<%= @message.id %>").removeAttr('id');

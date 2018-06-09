@@ -1,9 +1,8 @@
 class ClaimCoupon
   include ActiveModel::Model
   # this merely exists to better pass back errors to coupon form
-  attr_accessor(
-    :code
-  )
+  
+  attr_accessor :code
 
   validates :code,
     presence: true

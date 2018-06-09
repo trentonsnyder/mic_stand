@@ -6,7 +6,7 @@ class Coupon < ApplicationRecord
     presence: true
 
   validates :worth,
-    presence: true,
+    presence:     true,
     numericality: { greater_than: 0, less_than_or_equal_to: 10 }
 
   def self.claimed(user_id)

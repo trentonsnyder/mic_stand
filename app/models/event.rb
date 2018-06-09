@@ -7,7 +7,7 @@ class Event < ApplicationRecord
 
   validates :name,
     presence: true,
-    length: { minimum: 1, maximum: 255 }
+    length:   { minimum: 1, maximum: 255 }
 
   validates :credit_id,
     uniqueness: true
@@ -21,7 +21,7 @@ class Event < ApplicationRecord
   # duration is length of event in seconds
   # 86400 = secs in a day
   validates :duration,
-    presence: true,
+    presence:     true,
     numericality: { greater_than: 0, less_than_or_equal_to: 86_400 }
 
   def self.current

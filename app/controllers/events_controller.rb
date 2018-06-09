@@ -1,4 +1,5 @@
 class EventsController < AuthorizedController
+
   def index
     @events = current_user.events
                           .current
@@ -16,6 +17,8 @@ class EventsController < AuthorizedController
   def show
     @event = current_user.events.find(params[:id])
     @messages = @event.messages
+                      .filter(params.slice(:search, :body_length))
+                      .page(params[:page])
   end
 
   def new

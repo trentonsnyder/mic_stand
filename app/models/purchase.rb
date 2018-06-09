@@ -4,7 +4,7 @@ class Purchase < ApplicationRecord
   has_many :credits
 
   validates :worth,
-    presence: true,
+    presence:     true,
     numericality: { greater_than: 0, less_than_or_equal_to: 1000 }
 
   after_create_commit :generate_credits

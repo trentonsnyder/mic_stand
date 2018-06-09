@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_many :events
 
   validates :role,
-    presence: true,
+    presence:  true,
     inclusion: { in: %w(user admin) }
   
   def available_credits

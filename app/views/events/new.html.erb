@@ -1,8 +1,14 @@
-<h1 class="centered-heading">New Event</h1>
-<div class="centered-form">
-  <%= simple_form_for @event do |f| %>
-    <%= f.input :name %>
-    <%= f.input :duration, collection: Event.duration_options, label: "Duration (hours)" %>
-    <%= f.submit "Create", class: "primary" %>
-  <% end %>
+<div class="page-container">
+  <div class="one-column">
+    <div class="card">
+      <h1 class="centered-heading">New Event</h1>
+      <div class="centered-form">
+        <%= simple_form_for @event do |f| %>
+          <%= f.input :name %>
+          <%= f.input :duration, collection: Event.duration_options, label: "Duration (hours)" %>
+          <%= f.submit "Create", class: "primary" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

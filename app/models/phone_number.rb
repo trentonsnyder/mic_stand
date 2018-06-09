@@ -6,8 +6,8 @@ class PhoneNumber < ApplicationRecord
 
   validates :phone_number,
     uniqueness: true,
-    presence: true,
-    length: { maximum: 12 }
+    presence:   true,
+    length:     { maximum: 12 }
 
   def self.find_available_id
     # can't pass NULL or "" into IN clause in postgres

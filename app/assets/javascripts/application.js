@@ -7,3 +7,4 @@
 //= require navigation
 //= require flash
 //= require broadcast
+//= require message
