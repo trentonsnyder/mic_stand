@@ -16,8 +16,9 @@ class EventsController < AuthorizedController
 
   def show
     @event = current_user.events.find(params[:id])
+    @filters = request.query_parameters
     @messages = @event.messages
-                      .filter(params.slice(:search, :body_length))
+                      .filter(@filters.slice(:search, :ordering))
                       .page(params[:page])
   end
 

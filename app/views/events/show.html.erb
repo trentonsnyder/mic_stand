@@ -2,10 +2,23 @@
 <p><a href="http://localhost:3000/broadcasts/<%= @event.broadcast_token %>" target="_blank">http://localhost:3000/broadcasts/<%= @event.broadcast_token %></a></p>
 <p>send to someone (no login required) or open for yourself</p>
 
+<%= form_tag("/broadcasts/mailer", method: "post") do %>
+  <%= hidden_field_tag(:broadcast, @event.broadcast_token) %>
+  <%= email_field_tag(:email)%>
+  <%= submit_tag("Send") %>
+<% end %>
+
+<%= form_tag("/events/#{@event.id}", method: "get") do %>
+  <%= hidden_field_tag(:ordering, @filters["ordering"])%>
+  <%= label_tag(:search, "Search") %>
+  <%= text_field_tag(:search, @filters["search"])%>
+  <%= submit_tag("Search") %>
+<% end %>
+
 <div>
   <%= link_to "Clear", event_path(@event.id) %>
-  <%= link_to "Short", {controller: "events", action: "show", id: @event.id, body_length: "short"} %>
-  <%= link_to "Long", {controller: "events", action: "show", id: @event.id, body_length: "long"} %>
+  <%= link_to "Short", {controller: "events", action: "show", id: @event.id, ordering: "short", search: @filters["search"]} %>
+  <%= link_to "Long", {controller: "events", action: "show", id: @event.id, ordering: "long", search: @filters["search"]} %>
 </div>
 
 <div class="page-container">

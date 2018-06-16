@@ -13,14 +13,14 @@ class Message < ApplicationRecord
     uniqueness: { scope: :event },
     length:     { minimum: 7, maximum: 15 }
 
-  scope :search,      -> (value) { where("LOWER(body) LIKE ?", "%#{value.downcase}%") }
-  scope :body_length, -> (value) { sort_by_length(value) }
+  scope :search,   -> (value) { where("LOWER(body) LIKE ?", "%#{value.downcase}%") }
+  scope :ordering, -> (value) { sort_by_length(value) }
 
   def self.sort_by_length(value)
     if value == "long"
-      order("LENGTH(body) DESC")
+      order(Arel.sql("LENGTH(body) DESC"))
     elsif value == "short"
-      order("LENGTH(body) ASC")
+      order(Arel.sql("LENGTH(body) ASC"))
     end
   end
 

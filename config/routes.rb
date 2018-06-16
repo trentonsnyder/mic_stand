@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   authenticated :user do
     root 'events#index', as: :authenticated_root
     get 'events/expired', to: "events#expired"
+    
     resources :events, only: [:index, :show, :new, :create] do
       resources :messages, only: [] do
         member do
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
   ## unauthenticated routes ##
 
   root "home#landing"
+  post "broadcasts/mailer", to: "broadcasts#mailer"
   get "broadcasts/:token", to: "broadcasts#show"
   
   namespace :hooks do
