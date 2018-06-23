@@ -16,9 +16,14 @@
 <% end %>
 
 <div>
+  <% link_ = {controller: "events", action: "show", id: @event.id, ordering: @filters["ordering"], search: @filters["search"], funnel: @filters["funnel"]} %>
   <%= link_to "Clear", event_path(@event.id) %>
-  <%= link_to "Short", {controller: "events", action: "show", id: @event.id, ordering: "short", search: @filters["search"]} %>
-  <%= link_to "Long", {controller: "events", action: "show", id: @event.id, ordering: "long", search: @filters["search"]} %>
+  <%= link_to "Short", link_.merge(ordering: "short") %>
+  <%= link_to "Long", link_.merge(ordering: "long") %>
+  <%= link_to "Common", link_.merge(ordering: "common") %>
+  <%= link_to "Unique", link_.merge(ordering: "unique") %>
+  <%= link_to "Selected", link_.merge(funnel: "selected") %>
+  <%= link_to "Unselected", link_.merge(funnel: "unselected") %>
 </div>
 
 <div class="page-container">
@@ -37,7 +42,7 @@
               remote: true
             %>
           <% else %>
-            <%= link_to "Asked",
+            <%= link_to "Selected",
               select_event_message_path(@event.id, message.id),
               class: "button primary",
               method: :post,

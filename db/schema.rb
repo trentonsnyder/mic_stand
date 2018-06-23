@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_035413) do
     t.string "name", null: false
     t.string "broadcast_token", null: false
     t.datetime "session_expiry", null: false
+    t.json "word_ranking"
     t.integer "duration", null: false
     t.bigint "user_id", null: false
     t.bigint "credit_id", null: false
@@ -48,6 +49,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_035413) do
   create_table "messages", force: :cascade do |t|
     t.text "body", null: false
     t.string "from", null: false
+    t.float "score", default: 0.0
     t.datetime "selected"
     t.bigint "event_id", null: false
     t.index ["event_id"], name: "index_messages_on_event_id"

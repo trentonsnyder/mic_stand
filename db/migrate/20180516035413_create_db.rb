@@ -10,6 +10,7 @@ class CreateDb < ActiveRecord::Migration[5.2]
       t.string     :name,            null: false
       t.string     :broadcast_token, null: false
       t.datetime   :session_expiry,  null: false
+      t.json       :word_ranking
       t.integer    :duration,        null: false
       t.belongs_to :user,            null: false
       t.belongs_to :credit,          null: false
@@ -19,8 +20,8 @@ class CreateDb < ActiveRecord::Migration[5.2]
     add_index :events, :session_expiry
 
     create_table :credits do |t|
-      t.belongs_to :user,        null: false
-      t.belongs_to :coupon,      null: true
+      t.belongs_to :user,     null: false
+      t.belongs_to :coupon,   null: true
       t.belongs_to :purchase, null: true
     end
 
@@ -37,6 +38,7 @@ class CreateDb < ActiveRecord::Migration[5.2]
     create_table :messages do |t|
       t.text       :body,     null: false
       t.string     :from,     null: false
+      t.float      :score,    default: 0
       t.datetime   :selected
       t.belongs_to :event,    null: false
     end
