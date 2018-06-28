@@ -18,7 +18,7 @@ def random_duration
 end
 
 def generate_messages(event)
-  rand(5..25).times do
+  rand(500..1125).times do
     event.messages.create(from: Faker::PhoneNumber.cell_phone, body: Faker::Hipster.sentence)
   end
 end

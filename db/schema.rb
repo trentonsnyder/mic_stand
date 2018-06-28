@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_035413) do
     t.string "name", null: false
     t.string "broadcast_token", null: false
     t.datetime "session_expiry", null: false
-    t.json "word_ranking"
+    t.json "word_ranking", default: {}
     t.integer "duration", null: false
     t.bigint "user_id", null: false
     t.bigint "credit_id", null: false

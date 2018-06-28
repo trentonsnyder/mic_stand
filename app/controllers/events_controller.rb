@@ -34,6 +34,7 @@ class EventsController < AuthorizedController
     begin
       @event = current_user.events.new(event_params)
       @event.register
+      @event.after_register
       redirect_to @event
     rescue ActiveRecord::RecordInvalid
       render :new

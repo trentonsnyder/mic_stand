@@ -45,7 +45,7 @@ class Message < ApplicationRecord
   def set_score
     score_ = 0
     sanitized_body = body.downcase.gsub(/[.,;?:!()]/, "").split(" ").uniq.join(", ")
-    event.word_ranking.each { |w| score_ += w[1] if sanitized_body.include?(w[0]) }
+    event.word_ranking.each { |k, v| score_ += v if sanitized_body.include?(k) }
     update_columns(score: score_)
   end
 

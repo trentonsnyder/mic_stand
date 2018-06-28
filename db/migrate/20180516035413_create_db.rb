@@ -10,7 +10,7 @@ class CreateDb < ActiveRecord::Migration[5.2]
       t.string     :name,            null: false
       t.string     :broadcast_token, null: false
       t.datetime   :session_expiry,  null: false
-      t.json       :word_ranking
+      t.json       :word_ranking,    default: {}
       t.integer    :duration,        null: false
       t.belongs_to :user,            null: false
       t.belongs_to :credit,          null: false

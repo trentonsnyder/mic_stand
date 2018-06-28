@@ -43,6 +43,10 @@ class Event < ApplicationRecord
     where("session_expiry < ?", Time.current)
   end
 
+  def after_register
+    WordRankingJob.perform_in(1200, id)
+  end
+
   def assign_broadcast_token
     self.broadcast_token = SecureRandom.urlsafe_base64(28)
   end
@@ -68,6 +72,11 @@ class Event < ApplicationRecord
 
   def formatted_expiry
     session_expiry.strftime("%D %r")
+  end
+
+  def get_word_ranking
+    rankings = messages.get_ranking
+    update_columns(word_ranking: rankings)
   end
 
   def register
