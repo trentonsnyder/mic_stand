@@ -1,22 +1,21 @@
-<div class="navbar">
-  <div class="navbar-link navbar-link-brand">
-    Jeeves MC
+<div id="navbar">
+  <div id="close" data-behavior="close-menu">
+    MC
   </div>
-  <div class="navbar-link navbar-link-toggle" data-behavior="toggle-nav" }>
-    <p class="fas fa-bars">WHAYT</p>
-  </div>
-  <nav class="navbar-items navbar-items-right">
-    <div class="navbar-link">
+  <div class="links">
+    <div>
       <%= link_to('Events', root_path) %>
     </div>
-    <div class="navbar-link">
+    <div>
       <%= link_to('Archive', events_expired_path) %>
     </div>
-    <div class="navbar-link">
+    <div>
       <%= link_to('Credits', new_purchase_path) %>
     </div>
-    <div class="navbar-link">
-      <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
-    </div>
-  </nav>
+  </div>
+  <div class="logout">
+    <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+  </div>
 </div>
+
+

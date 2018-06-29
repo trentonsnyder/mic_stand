@@ -21,13 +21,19 @@
       </div>
     <% end %>
 
-    <% if user_signed_in?  %> 
-      <%= render 'layouts/navigation/logged_in' %>
-        <% else %>
-      <%= render 'layouts/navigation/logged_out' %>
-    <% end %>
-
-    <%= yield %>
+    <div class="content-wrapper">
+      <% if user_signed_in?  %> 
+        <%= render 'layouts/navigation/logged_in' %>
+      <% else %>
+        <%= render 'layouts/navigation/logged_out' %>
+      <% end %>
+      <div class="content">
+        <div id="hamburger" data-behavior="open-menu">
+          <span>HAM</span>
+        </div>
+        <%= yield %>
+      </div>
+    </div>
 
   </body>
 </html>

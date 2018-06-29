@@ -1,5 +1,5 @@
 <h1><%= @event.name %></h1>
-<p><a href="http://localhost:3000/broadcasts/<%= @event.broadcast_token %>" target="_blank">http://localhost:3000/broadcasts/<%= @event.broadcast_token %></a></p>
+<a href="http://localhost:3000/broadcasts/<%= @event.broadcast_token %>" target="_blank">http://localhost:3000/broadcasts/<%= @event.broadcast_token %></a>
 <p>send to someone (no login required) or open for yourself</p>
 
 <%= form_tag("/broadcasts/mailer", method: "post") do %>
