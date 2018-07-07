@@ -1,21 +1,19 @@
 <div id="navbar">
   <div id="close" data-behavior="close-menu">
-    MC
+    <span>X</span>
   </div>
   <div class="links">
-    <div>
+    <div class="link">
       <%= link_to('Events', root_path) %>
     </div>
-    <div>
+    <div class="link">
       <%= link_to('Archive', events_expired_path) %>
     </div>
-    <div>
-      <%= link_to('Credits', new_purchase_path) %>
+    <div class="link">
+      <%= link_to('Credits', new_charge_path) %>
     </div>
   </div>
-  <div class="logout">
+  <div class="link">
     <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
   </div>
 </div>
-
-

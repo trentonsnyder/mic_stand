@@ -13,8 +13,10 @@ Rails.application.routes.draw do
         end
       end
     end
-    resources :purchases,     only: [:new]
+
     resources :claim_coupons, only: [:new, :create]
+    # for stripe gem
+    resources :charges
   end
 
   ## unauthenticated routes ##

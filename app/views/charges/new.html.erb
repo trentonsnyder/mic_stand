@@ -1,0 +1,60 @@
+<div class="page-container">
+  <div class="one-column">
+    <div class="card">
+      <h2 class="centered-heading">Credit Count: <%= @credit_count %></h2>
+      <div class="card-action">
+      <%= link_to "Have a coupon?", new_claim_coupon_path %>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-horizontal">
+        <div class="box">
+          <h3>Good</h3>
+          <p>1 credits / $2</p>
+          <%= form_tag charges_path do %>
+            <%= hidden_field_tag(:option, 'a') %>
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                    data-description="Good - 1 credit"
+                    data-amount="200"
+                    data-label="Pick"
+                    data-locale="auto">
+            </script>
+            <button type="submit" class="primary">Pick</button>
+          <% end %>
+        </div>
+        <div class="box">
+          <h3>Better</h3>
+          <p>5 credits / $8</p>
+          <%= form_tag charges_path do %>
+            <%= hidden_field_tag(:option, 'b') %>
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                    data-description="Better - 5 credits"
+                    data-amount="800"
+                    data-label="Pick"
+                    data-locale="auto">
+            </script>
+            <button type="submit" class="primary">Pick</button>
+          <% end %>
+        </div>
+        <div class="box">
+          <h3>Best!</h3>
+          <p><strong>10</strong> credits / $12</p>
+          <%= form_tag charges_path do %>
+            <%= hidden_field_tag(:option, 'c') %>
+            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                    data-description="Best - 10 credits"
+                    data-amount="1200"
+                    data-label="Pick"
+                    data-locale="auto">
+            </script>
+            <button type="submit" class="primary">Pick</button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

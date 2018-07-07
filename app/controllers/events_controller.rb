@@ -26,7 +26,7 @@ class EventsController < AuthorizedController
     if current_user.available_credits.count.positive?
       @event = current_user.events.new
     else
-      redirect_to new_purchase_path
+      redirect_to new_charge_path
     end
   end
 

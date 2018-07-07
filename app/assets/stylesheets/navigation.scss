@@ -3,7 +3,6 @@
   flex-direction: column;
   width: 120px;
   background-color: $secondary;
-  padding-left: 8px;
   #close {
     display: none;
   }
@@ -11,17 +10,51 @@
     display: flex;
     flex-direction: column;
     flex: 1;
+    margin-top: 100px;
+    div:first-child { 
+      border-top: 1px solid white;
+    }
+    div:last-child { 
+      border-bottom: 1px solid white;
+    }
+  }
+  .link {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 50px;
+    padding-left: 15px;
+  }
+  a {
+    font-size: 18px;
+    color: rgba(255,255,255, 1);
+    text-shadow: 1px 1px 1px #838383;
+  }
+  a:hover {
+    color: $primary;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
   }
 }
 #hamburger {
   display: none;
-  position: relative;
-  top: 2px;
-  left: 2px;
 }
 @media only screen and (max-width: 768px) {
   #hamburger {
     display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    position: relative;
+    top: 2px;
+    left: 2px;
+    span {
+      width: 35px;
+      height: 5px;
+      background-color: $primary;
+      margin: 3px 0;
+    }
+  }
+  #hamburger:hover span {
+    background-color: $secondary;
   }
   #navbar {
     z-index: 2;
@@ -31,10 +64,22 @@
     flex-direction: column;
     width: 120px;
     background-color: $secondary;
-    padding-left: 8px;
     #close {
+      position: absolute;
       display: flex;
+      top: 4px;
+      right: 4px;
       height: 50px;
+      width: 50px;
+      font-size: 24px;
+      cursor: pointer;
+      text-align: center;
+      color: rgba(255,255,255, 1);
+      text-shadow: 1px 1px 1px #838383;
+      :hover {
+        color: $primary;
+        text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+      }
     }
     .links {
       display: flex;

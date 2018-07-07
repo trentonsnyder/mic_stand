@@ -20,6 +20,7 @@ gem 'puma',          '~> 3.11'
 gem 'sass-rails',    '~> 5.0'
 gem 'sidekiq',       '~> 5.1', '>= 5.1.3'
 gem 'simple_form',   '~> 4.0.1'
+gem 'stripe'
 gem 'turbolinks',    '~> 5'
 gem 'uglifier',      '>= 1.3.0'
 

@@ -20,6 +20,10 @@
 - Spacing
 */
 
+/* Becuase WTF stripe? let me style it dammit */
+.stripe-button-el span { display: none !important; }
+.stripe-button-el { display: none !important; }
+
 /* Base Styles
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 /* NOTE
