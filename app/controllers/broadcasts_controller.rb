@@ -9,6 +9,10 @@ class BroadcastsController < ApplicationController
   end
 
   def mailer
-    BroadcastMailer.with(broadcast: params[:broadcast], email: params[:email]).link_email.deliver_later
+    # TODO send email in job
+    # BroadcastMailer.with(broadcast: params[:broadcast], email: params[:email]).link_email.deliver
+    respond_to do |format|
+      format.js {}
+    end
   end
 end

@@ -1,11 +1,11 @@
 <h1><%= @event.name %></h1>
-<a href="http://localhost:3000/broadcasts/<%= @event.broadcast_token %>" target="_blank">http://localhost:3000/broadcasts/<%= @event.broadcast_token %></a>
+<a href="<%= "#{ENV['BASE_URL']}/broadcasts/#{@event.broadcast_token}" %>" target="_blank"><%= "#{ENV['BASE_URL']}/broadcasts/#{@event.broadcast_token}" %></a>
 <p>send to someone (no login required) or open for yourself</p>
 
-<%= form_tag("/broadcasts/mailer", method: "post") do %>
+<%= form_tag("/broadcasts/mailer", method: "post", remote: true) do %>
   <%= hidden_field_tag(:broadcast, @event.broadcast_token) %>
   <%= email_field_tag(:email)%>
-  <%= submit_tag("Send") %>
+  <%= submit_tag("Send", id: "broadcast-mailer") %>
 <% end %>
 
 <%= form_tag("/events/#{@event.id}", method: "get") do %>

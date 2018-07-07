@@ -12,7 +12,7 @@ class ChargesController < AuthorizedController
       )
       charge = Stripe::Charge.create(
         customer:     customer.id,
-        amount:       package[:amount],
+        amount:       package[:pence],
         description:  "Credit purchase - #{package[:name]}",
         currency:     'usd'
       )
@@ -20,9 +20,7 @@ class ChargesController < AuthorizedController
     else
     Rails.logger.error("Package lookup failed.")
       flash[:error] = "Option unavailable."
-      redirect_to new_charge_path
     end
-  
   
   redirect_to new_charge_path
 

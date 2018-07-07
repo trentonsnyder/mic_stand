@@ -1,60 +1,63 @@
+<script src="https://checkout.stripe.com/checkout.js"></script>
 <div class="page-container">
   <div class="one-column">
     <div class="card">
-      <h2 class="centered-heading">Credit Count: <%= @credit_count %></h2>
+      <h2 class="centered-heading">Credits: <%= @credit_count %></h2>
       <div class="card-action">
       <%= link_to "Have a coupon?", new_claim_coupon_path %>
       </div>
     </div>
-
+    
     <div class="card">
       <div class="card-horizontal">
-        <div class="box">
-          <h3>Good</h3>
-          <p>1 credits / $2</p>
-          <%= form_tag charges_path do %>
-            <%= hidden_field_tag(:option, 'a') %>
-            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                    data-description="Good - 1 credit"
-                    data-amount="200"
-                    data-label="Pick"
-                    data-locale="auto">
-            </script>
-            <button type="submit" class="primary">Pick</button>
+        <% # https://stackoverflow.com/questions/21544146/multiple-stripe-payment-buttons-on-one-page-of-rails-4-app %>
+        <%= form_tag charges_path, id: 'stripe-payment-form' do %>
+          <%= hidden_field_tag 'amount', nil, id: 'payment_amount' %>
+          <%= hidden_field_tag 'option', nil, id: 'payment_option' %>
+
+          <% Offer.packages.each do |offer| %>
+            <div class="box">
+              <h3><%= offer[:display_name] %></h3>
+              <p><%= offer[:worth] %> credits / $<%= offer[:amount] %></p>
+              <button id="<%= offer[:name] %>" class="primary">Pick</button>
+            </div>
           <% end %>
-        </div>
-        <div class="box">
-          <h3>Better</h3>
-          <p>5 credits / $8</p>
-          <%= form_tag charges_path do %>
-            <%= hidden_field_tag(:option, 'b') %>
-            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                    data-description="Better - 5 credits"
-                    data-amount="800"
-                    data-label="Pick"
-                    data-locale="auto">
-            </script>
-            <button type="submit" class="primary">Pick</button>
+
+          <%= javascript_tag do %>
+            var handler = StripeCheckout.configure({
+              key: "<%= Rails.configuration.stripe[:publishable_key] %>",
+              token: function(token, args) {
+                var form = $('#stripe-payment-form');
+                // Use the token to create the charge with a server-side script.
+                // You can access the token ID with `token.id`
+                form.append($('<input type="hidden" name="stripeToken" />').val(token.id));
+                form.submit()
+              }
+            });
+
+            <% Offer.packages.each do |offer| %>
+              document.getElementById('<%= offer[:name] %>').addEventListener('click', function(e) {
+                var form = $('#stripe-payment-form');
+                // set the price etc for the button clicked
+                $('#payment_amount').val("<%= offer[:amount] %>");
+                $('#payment_option').val("<%= offer[:name] %>");
+                // Open Checkout with further options
+                handler.open({
+                  description: '<%= offer[:display_name] %> - <%= offer[:worth] %>',
+                  locale: 'auto',
+                  amount: '<%= offer[:pence] %>',
+                  email: '<%= current_user.email %>',
+                });
+                e.preventDefault();
+              });
+            <% end %>
+            window.addEventListener('popstate', function() {
+              handler.close();
+            });
           <% end %>
-        </div>
-        <div class="box">
-          <h3>Best!</h3>
-          <p><strong>10</strong> credits / $12</p>
-          <%= form_tag charges_path do %>
-            <%= hidden_field_tag(:option, 'c') %>
-            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                    data-description="Best - 10 credits"
-                    data-amount="1200"
-                    data-label="Pick"
-                    data-locale="auto">
-            </script>
-            <button type="submit" class="primary">Pick</button>
-          <% end %>
-        </div>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
+
