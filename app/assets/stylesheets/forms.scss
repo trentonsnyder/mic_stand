@@ -22,3 +22,22 @@
     }
   }
 }
+
+/* for devise forms */
+.error_notification {
+  display: none;
+}
+.form-inputs {
+  div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+  }
+  input {
+    margin-bottom: 0px;
+  }
+  span {
+    height: 0px;
+    color: red;
+  }
+}

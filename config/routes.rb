@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   mount ActionCable.server, at: '/cable'
   devise_for :users
-  
+
+  # workaround for devise + turbolinks POST issues on refresh ###
+  # https://github.com/plataformatec/devise/issues/4470
+  resources :users, only: [:index]
+  get 'users/password', to: "users#password"
+  ##################
+
   authenticated :user do
     root 'events#index', as: :authenticated_root
     get 'events/expired', to: "events#expired"
