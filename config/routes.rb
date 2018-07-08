@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     get 'events/expired', to: "events#expired"
     
     resources :events, only: [:index, :show, :new, :create] do
+      member do
+        get 'broadcast', to: "events#broadcast"
+      end
       resources :messages, only: [] do
         member do
           post "select"

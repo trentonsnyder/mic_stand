@@ -41,6 +41,10 @@ class EventsController < AuthorizedController
     end
   end
 
+  def broadcast
+    @event = current_user.events.find(params[:id])
+  end
+
   private
 
   def event_params

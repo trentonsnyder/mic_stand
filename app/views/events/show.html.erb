@@ -1,58 +1,68 @@
-<h1><%= @event.name %></h1>
-<a href="<%= "#{ENV['BASE_URL']}/broadcasts/#{@event.broadcast_token}" %>" target="_blank"><%= "#{ENV['BASE_URL']}/broadcasts/#{@event.broadcast_token}" %></a>
-<p>send to someone (no login required) or open for yourself</p>
-
-<%= form_tag("/broadcasts/mailer", method: "post", remote: true) do %>
-  <%= hidden_field_tag(:broadcast, @event.broadcast_token) %>
-  <%= email_field_tag(:email)%>
-  <%= submit_tag("Send", id: "broadcast-mailer") %>
-<% end %>
-
-<%= form_tag("/events/#{@event.id}", method: "get") do %>
-  <%= hidden_field_tag(:ordering, @filters["ordering"])%>
-  <%= label_tag(:search, "Search") %>
-  <%= text_field_tag(:search, @filters["search"])%>
-  <%= submit_tag("Search") %>
-<% end %>
-
-<div>
-  <% link_ = {controller: "events", action: "show", id: @event.id, ordering: @filters["ordering"], search: @filters["search"], funnel: @filters["funnel"]} %>
-  <%= link_to "Clear", event_path(@event.id) %>
-  <%= link_to "Short", link_.merge(ordering: "short") %>
-  <%= link_to "Long", link_.merge(ordering: "long") %>
-  <%= link_to "Common", link_.merge(ordering: "common") %>
-  <%= link_to "Unique", link_.merge(ordering: "unique") %>
-  <%= link_to "Selected", link_.merge(funnel: "selected") %>
-  <%= link_to "Unselected", link_.merge(funnel: "unselected") %>
-</div>
-
 <div class="page-container">
   <div class="one-column">
-    <% @messages.each do |message| %>
-      <div class="card">
-        <p class="card-content"><%= message.body %></p>
-        <div class="card-action">
-          <% if message.selected.nil? %>
-            <%= link_to "Select",
-              select_event_message_path(@event.id, message.id),
-              class: "button",
-              id:    "message-button-#{message.id}",
-              data:  { behavior: "mark-as-asked"},
-              method: :post,
-              remote: true
-            %>
-          <% else %>
-            <%= link_to "Selected",
-              select_event_message_path(@event.id, message.id),
-              class: "button primary",
-              method: :post,
-              remote: true,
-              data: { confirm: "Display message again?" }
-            %>
-          <% end %>
+
+    <div class="card">
+      <div class="event-header">
+        <span><%= @event.name %></span>
+        <span><%= @event.time_left %></span>
+        <span><%= @event.phone_number.phone_formatted %></span>
+        <%= link_to "Broadcast", broadcast_event_path(@event), class: 'button primary' %>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="event-filters">
+        <%= form_tag("/events/#{@event.id}", method: "get") do %>
+          <%= hidden_field_tag(:ordering, @filters["ordering"])%>
+          <%= text_field_tag(:search, @filters["search"])%>
+          <%= submit_tag("Search", class: 'button primary') %>
+        <% end %>
+        <div class="filters">
+          <% link_ = {controller: "events", action: "show", id: @event.id, ordering: @filters["ordering"], search: @filters["search"], funnel: @filters["funnel"]} %>
+          <%= link_to "Clear", event_path(@event.id), class: "filter" %>
+          <%= link_to "Short", link_.merge(ordering: "short"), class: "filter #{@filters["ordering"] === "short" && "selected"}" %>
+          <%= link_to "Long", link_.merge(ordering: "long"), class: "filter #{@filters["ordering"] === "long" && "selected"}" %>
+          <%= link_to "Common", link_.merge(ordering: "common"), class: "filter #{@filters["ordering"] === "common" && "selected"}" %>
+          <%= link_to "Unique", link_.merge(ordering: "unique"), class: "filter #{@filters["ordering"] === "unique" && "selected"}" %>
+          <%= link_to "Selected", link_.merge(funnel: "selected"), class: "filter #{@filters["funnel"] === "selected" && "selected"}" %>
+          <%= link_to "Unselected", link_.merge(funnel: "unselected"), class: "filter #{@filters["funnel"] === "unselected" && "selected"}" %>
         </div>
       </div>
+    </div>
+
+    <div class="narrower">
+      <% @messages.each do |message| %>
+        <div class="card">
+          <p class="card-content"><%= message.body %></p>
+          <div class="card-action">
+            <% if message.selected.nil? %>
+              <%= link_to "Select",
+                select_event_message_path(@event.id, message.id),
+                class: "button",
+                id:    "message-button-#{message.id}",
+                data:  { behavior: "mark-as-asked"},
+                method: :post,
+                remote: true
+              %>
+            <% else %>
+              <%= link_to "Selected",
+                select_event_message_path(@event.id, message.id),
+                class: "button primary",
+                method: :post,
+                remote: true,
+                data: { confirm: "Display message again?" }
+              %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <% if @messages.total_pages > 0 %>
+      <div class="card">
+        <%= paginate @messages %>
+      </div>
     <% end %>
-    <%= paginate @messages %>
+
   </div>
 </div>

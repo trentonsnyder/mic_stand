@@ -1,33 +1,25 @@
 <div class="page-container">
   <div class="one-column">
     <div class="card">
-      <%= link_to "Get Credits", new_charge_path, class: "button" %>
-      <%= link_to "New Event", new_event_path, class: "button primary" %>
-    </div>
-    <% if @events.count.positive? %>
-      <div class="card">
-        <h2 class="centered-heading">Past Events</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Duration</th>
-              <th>Date</th>
-              <th>Expiration</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @events.each do |e| %>
-              <tr>
-                <td><%= link_to e.name, event_path(e) %></td>
-                <td><%= Time.zone.at(e.duration).utc.strftime("%H:%M:%S") %></td>
-                <td><%= e.created_at.strftime("%D") %></td>
-                <td><%= e.formatted_expiry %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+      <div class="event-header">
+        <h2 class="centered-heading">Expired</h2>
+        <%= link_to "Get Credits", new_charge_path, class: "button" %>
+        <%= link_to "New Event", new_event_path, class: "button primary" %>
       </div>
+    </div>
+
+    <% if @events.count.positive? %>
+      <% @events.each do |e| %>
+        <div class="card">
+          <%= link_to event_path(e) do %>
+            <div class="event-header">
+              <span><%= e.name %></span>
+              <span><%= e.phone_number.phone_formatted %></span>
+              <span><%= Time.zone.at(e.duration).utc.strftime("%H:%M:%S") %></span>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

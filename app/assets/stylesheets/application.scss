@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
 @import 'normalize';
 @import 'colors';
 @import 'skeleton';
@@ -6,6 +7,8 @@
 @import 'unauthorized';
 @import 'forms';
 @import 'headings';
+@import 'pagination';
+@import 'event';
 
 div.content-wrapper {
   display: flex;
@@ -58,6 +61,13 @@ div.page-container {
       }
     }
   }
+}
+
+.narrower {
+  width: 90%;
+  max-width: 900px;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .hidden {
