@@ -58,7 +58,7 @@
       <% end %>
     </div>
 
-    <% if @messages.total_pages > 0 %>
+    <% if @messages.total_pages > 1 %>
       <div class="card">
         <%= paginate @messages %>
       </div>

@@ -12,7 +12,7 @@ class ClaimCoupon
   PARTS = 4
 
   def claim(user)
-    coupon = Coupon.find_by(code: self.code)
+    coupon = Coupon.unclaimed.find_by(code: self.code)
     if coupon
       coupon.generate_credits(user)
     else
@@ -46,6 +46,7 @@ class ClaimCoupon
     if valid?
       unless claim(user)
         errors.add(:code, "Sorry, couldn't find that one. Try again?")
+        false
       else
         true
       end

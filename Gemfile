@@ -8,9 +8,11 @@ gem 'pg',            '>= 0.18', '< 2.0'
 
 gem 'awesome_print', '~> 1.8'
 gem 'bootsnap',      '>= 1.1.0', require: false
+gem 'chartkick'
 gem 'coupon_code',   '~> 0.0.1'
 gem 'devise',        '~> 4.2'
 gem 'graph-rank'
+gem 'groupdate'
 gem 'httparty',      '~> 0.16.2'
 gem 'jquery-rails'
 gem 'kaminari'
@@ -21,7 +23,6 @@ gem 'sass-rails',    '~> 5.0'
 gem 'sidekiq',       '~> 5.1', '>= 5.1.3'
 gem 'simple_form',   '~> 4.0.1'
 gem 'stripe'
-gem 'turbolinks',    '~> 5'
 gem 'uglifier',      '>= 1.3.0'
 
 group :development, :test do

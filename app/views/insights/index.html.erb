@@ -1,0 +1,24 @@
+<div class="page-container">
+  <div class="one-column">
+    <div class="card">
+      <h3 class="centered-heading">Response Totals</h3>
+      <div class="line-chart">
+        <%= line_chart insights_all_messages_chart_path, label: "Responses" %>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="centered-heading">Top Words (recent)</h3>
+      <div class="line-chart">
+        <%= column_chart insights_keywords_chart_path, label: "Rank" %>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Top Responses (commonality rank)</h3>
+      <ol>
+      <% @messages.each do |message| %>
+        <li>  <%= message.body %></li>
+      <% end %>
+      </ol>
+    </div>
+  </div>
+</div>

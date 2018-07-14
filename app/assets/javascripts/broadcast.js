@@ -1,4 +1,4 @@
-$(document).on("turbolinks:load", () => {
+$(document).on("ready", () => {
   if ($(".broadcasts.show").length > 0) {
     $("#navbar").css('display', 'none')
     App.cable.subscriptions.create(

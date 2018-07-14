@@ -12,8 +12,8 @@ class LDA
     text_rank  = @tr.run(text_body)
     # run() returns array of arrays
     # maybe fork the gem and change to do sanatize and to_h in gem
-    top_100    = text_rank[0..124]
-    formatted  = top_100.to_h
+    top_50    = text_rank[0..49]
+    formatted  = top_50.to_h
     minus_lost = formatted.except(*lost_words())
   end
 

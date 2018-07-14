@@ -4,6 +4,10 @@ phone_bank = [
   "+14242424938"
 ]
 
+path = File.expand_path('../questions_amazon.json', __FILE__)
+file = File.read(path)
+@responses = JSON.parse(file)
+
 @time_ago_bank = [
   2.hours.ago,
   12.hours.ago,
@@ -19,7 +23,7 @@ end
 
 def generate_messages(event)
   rand(500..1125).times do
-    event.messages.create(from: Faker::PhoneNumber.cell_phone, body: Faker::Hipster.sentence)
+    event.messages.create(from: Faker::PhoneNumber.cell_phone, body: @responses.sample["question"])
   end
 end
 

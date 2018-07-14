@@ -25,8 +25,8 @@ App.Flash = {
   }
 };
 
-$(document).on("turbolinks:load", () => App.Flash.timeoutFlash() );
-$(document).on("turbolinks:before-render", () => App.Flash.clearFlash() );
+$(document).on("ready", () => App.Flash.timeoutFlash() );
+// $(document).on("ready", () => App.Flash.clearFlash() );
 
 $(document).on("click", "[data-behavior~=dismiss-error-flash]", () => {
   return App.Flash.dismissFlash($('#error-flash'));
