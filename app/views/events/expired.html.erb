@@ -15,7 +15,7 @@
             <div class="event-header">
               <span><%= e.name %></span>
               <span><%= e.phone_number.phone_formatted %></span>
-              <span><%= Time.zone.at(e.duration).utc.strftime("%H:%M:%S") %></span>
+              <span><%= e.created_at.strftime("%D") %></span>
             </div>
           <% end %>
         </div>

@@ -1,6 +1,9 @@
 class InsightsController < AuthorizedController
   def index
-    @messages = Message.joins(:event).where('events.user_id = ?', current_user.id).order('messages.score DESC').limit(15)
+    @messages = Message.joins(:event)
+                       .where('events.user_id = ?', current_user.id)
+                       .order('messages.score DESC')
+                       .limit(15)
   end
 
   def all_messages_chart
@@ -17,9 +20,8 @@ class InsightsController < AuthorizedController
                              .order('created_at DESC')
                              .limit(10)
                              .map(&:word_ranking)
-                             .inject{|memo, el| memo.merge( el ){|k, old_v, new_v| old_v + new_v}}
-                             .sort_by {|k,v| v}
-                             .reverse
-                             .first(15)
+                             .inject{ |memo, el| memo.merge(el) { |k, old_v, new_v| old_v + new_v } }
+                             .sort_by { |k, v| v }
+                             .last(15)
   end
 end

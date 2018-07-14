@@ -3,13 +3,13 @@
     <div class="card">
       <h3 class="centered-heading">Response Totals</h3>
       <div class="line-chart">
-        <%= line_chart insights_all_messages_chart_path, label: "Responses" %>
+        <%= line_chart insights_all_messages_chart_path, label: "Responses", colors: ["#2891A8"] %>
       </div>
     </div>
     <div class="card">
       <h3 class="centered-heading">Top Words (recent)</h3>
       <div class="line-chart">
-        <%= column_chart insights_keywords_chart_path, label: "Rank" %>
+        <%= column_chart insights_keywords_chart_path, label: "Rank", colors: ["#2891A8"] %>
       </div>
     </div>
     <div class="card">
