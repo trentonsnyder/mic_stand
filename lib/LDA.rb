@@ -22,7 +22,7 @@ class LDA
   def sanitize_sentences
     # trying this out - find only unique words so that sentences like
     # "Buffalo buffalo, buffalo buffalo Buffalo buffalo" don't inflate word ranking
-    @sentences.each { |s| s.downcase.gsub(/[.,;?:!()]/, "").split(" ").uniq }
+    @sentences.map { |s| s.downcase.gsub(/([.,;?:!()])|(#[a-zA-Z0-9]*)|(^|[^@\w])@(\w{1,15})/, "").chomp.split(" ").uniq }
   end
 
   def lost_words

@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 2018_05_16_035413) do
   create_table "events", force: :cascade do |t|
     t.string "name", null: false
     t.string "broadcast_token", null: false
+    t.string "hashtag"
     t.datetime "session_expiry", null: false
     t.json "word_ranking", default: {}
     t.integer "duration", null: false
@@ -49,6 +50,9 @@ ActiveRecord::Schema.define(version: 2018_05_16_035413) do
   create_table "messages", force: :cascade do |t|
     t.text "body", null: false
     t.string "from", null: false
+    t.string "kind", null: false
+    t.bigint "tweet_id"
+    t.integer "likes", default: 0, null: false
     t.float "score", default: 0.0
     t.datetime "selected"
     t.bigint "event_id", null: false

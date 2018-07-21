@@ -9,6 +9,7 @@ class CreateDb < ActiveRecord::Migration[5.2]
     create_table :events do |t|
       t.string     :name,            null: false
       t.string     :broadcast_token, null: false
+      t.string     :hashtag,         null: true
       t.datetime   :session_expiry,  null: false
       t.json       :word_ranking,    default: {}
       t.integer    :duration,        null: false
@@ -38,6 +39,9 @@ class CreateDb < ActiveRecord::Migration[5.2]
     create_table :messages do |t|
       t.text       :body,     null: false
       t.string     :from,     null: false
+      t.string     :kind,     null: false
+      t.bigint     :tweet_id
+      t.integer    :likes,    null: false, default: 0
       t.float      :score,    default: 0
       t.datetime   :selected
       t.belongs_to :event,    null: false

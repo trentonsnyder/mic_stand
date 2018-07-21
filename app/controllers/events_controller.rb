@@ -15,10 +15,10 @@ class EventsController < AuthorizedController
   end
 
   def show
-    @event = current_user.events.find(params[:id])
+    @event = current_user.events.find_by!(id: params[:id])
     @filters = request.query_parameters
     @messages = @event.messages
-                      .filter(@filters.slice(:search, :ordering, :funnel))
+                      .filter(@filters.slice(:search, :ordering, :funnel, :kind))
                       .page(params[:page])
   end
 
@@ -42,12 +42,12 @@ class EventsController < AuthorizedController
   end
 
   def broadcast
-    @event = current_user.events.find(params[:id])
+    @event = current_user.events.find_by!(id: params[:id])
   end
 
   private
 
   def event_params
-    params.require(:event).permit(:name, :duration)
+    params.require(:event).permit(:name, :duration, :hashtag)
   end
 end

@@ -23,6 +23,21 @@
   }
 }
 
+.left-inner-addon {
+  position: relative;
+  input {
+    padding-left: 38px;
+  }
+  i {
+    position: absolute;
+    padding: 6px 12px 6px 12px;
+    pointer-events: none;
+    top: 30px; 
+    border-right: 1px solid #D1D1D1;
+    z-index: 4;
+  }
+}
+
 /* for devise forms */
 .error_notification {
   display: none;

@@ -18,12 +18,17 @@
           <%= submit_tag("Search", class: 'button primary') %>
         <% end %>
         <div class="filters">
-          <% link_ = {controller: "events", action: "show", id: @event.id, ordering: @filters["ordering"], search: @filters["search"], funnel: @filters["funnel"]} %>
+          <% link_ = {controller: "events", action: "show", id: @event.id, ordering: @filters["ordering"], search: @filters["search"], funnel: @filters["funnel"], kind: @filters["kind"]} %>
           <%= link_to "Clear", event_path(@event.id), class: "filter" %>
+          <span>|</span>
           <%= link_to "Short", link_.merge(ordering: "short"), class: "filter #{@filters["ordering"] === "short" && "selected"}" %>
           <%= link_to "Long", link_.merge(ordering: "long"), class: "filter #{@filters["ordering"] === "long" && "selected"}" %>
           <%= link_to "Common", link_.merge(ordering: "common"), class: "filter #{@filters["ordering"] === "common" && "selected"}" %>
           <%= link_to "Unique", link_.merge(ordering: "unique"), class: "filter #{@filters["ordering"] === "unique" && "selected"}" %>
+          <span>|</span>
+          <%= link_to "SMS", link_.merge(kind: "sms"), class: "filter #{@filters["kind"] === "sms" && "selected"}" %>
+          <%= link_to "Tweets", link_.merge(kind: "tweet"), class: "filter #{@filters["kind"] === "tweet" && "selected"}" %>
+          <span>|</span>
           <%= link_to "Selected", link_.merge(funnel: "selected"), class: "filter #{@filters["funnel"] === "selected" && "selected"}" %>
           <%= link_to "Unselected", link_.merge(funnel: "unselected"), class: "filter #{@filters["funnel"] === "unselected" && "selected"}" %>
         </div>

@@ -6,17 +6,24 @@ class Message < ApplicationRecord
 
   validates :body,
     presence: true,
-    length:   { minimum: 3, maximum: 333 }
+    length:   { minimum: 5, maximum: 333 }
+  
+  validates :tweet_id,
+    uniqueness: true
 
   validates :from,
     presence:   true,
-    uniqueness: { scope: :event },
-    length:     { minimum: 7, maximum: 15 }
+    length:     { minimum: 3, maximum: 16 }
+
+  validates :kind,
+    presence:  true,
+    inclusion: { in: ['sms', 'tweet'] }
 
   # filters
   scope :funnel,   -> (value) { funnel_by_selected(value) }
   scope :ordering, -> (value) { ordering(value) }
   scope :search,   -> (value) { where("LOWER(body) LIKE ?", "%#{value.downcase}%") }
+  scope :kind,     -> (value) { where("kind = ?", "#{value.downcase}") }
 
   def self.ordering(value)
     if value == "long"
@@ -44,7 +51,7 @@ class Message < ApplicationRecord
 
   def set_score
     score_ = 0
-    sanitized_body = body.downcase.gsub(/[.,;?:!()]/, "").split(" ").uniq.join(", ")
+    sanitized_body = body.downcase.gsub(/([.,;?:!()])|(#[a-zA-Z0-9]*)|(^|[^@\w])@(\w{1,15})/, "").chomp.split(" ").uniq
     event.word_ranking.each { |k, v| score_ += v if sanitized_body.include?(k) }
     update_columns(score: score_)
   end

@@ -6,6 +6,10 @@
         <%= simple_form_for @event do |f| %>
           <%= f.input :name %>
           <%= f.input :duration, collection: Event.duration_options, label: "Duration (hours)" %>
+          <div class="left-inner-addon">
+            <i>#</i>
+            <%= f.input :hashtag, placeholder: "The more unique the better!" %>
+          </div>
           <%= f.submit "Create", class: "primary" %>
         <% end %>
       </div>

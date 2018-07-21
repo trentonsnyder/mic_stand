@@ -12,6 +12,10 @@ class Event < ApplicationRecord
   validates :credit_id,
     uniqueness: true
 
+  validates :hashtag,
+    length: { minimum: 1, maximum: 30 },
+    allow_blank: true
+
   validates :session_expiry,
     presence: true
 
@@ -19,10 +23,10 @@ class Event < ApplicationRecord
     presence: true
 
   # duration is length of event in seconds
-  # 86400 = secs in a day
+  # 43200 = secs in a day
   validates :duration,
     presence:     true,
-    numericality: { greater_than: 0, less_than_or_equal_to: 86_400 }
+    numericality: { greater_than: 0, less_than_or_equal_to: 43_200 }
 
   def self.current
     where("session_expiry > ?", Time.current)
@@ -45,6 +49,7 @@ class Event < ApplicationRecord
 
   def after_register
     WordRankingJob.perform_in(1200, id)
+    TwitterSearchJob.perform_in(600, id) if self.hashtag.present?
   end
 
   def assign_broadcast_token
@@ -74,6 +79,12 @@ class Event < ApplicationRecord
     session_expiry.strftime("%D %r")
   end
 
+  def format_hashtag
+    if self.hashtag.present?
+      self.hashtag = "##{self.hashtag.gsub(/[#@\s+]/, "")}"
+    end
+  end
+
   def get_word_ranking
     rankings = messages.get_ranking
     update_columns(word_ranking: rankings)
@@ -85,6 +96,7 @@ class Event < ApplicationRecord
       event.assign_credit
       event.assign_expiry
       event.assign_broadcast_token
+      event.format_hashtag
       event.save!
     end
   end

@@ -35,5 +35,5 @@ Rails.application.routes.draw do
   namespace :hooks do
     post 'messages', to: 'messages#create'
   end
-
+  get '*unmatched_route', to: 'application#render_404'
 end
