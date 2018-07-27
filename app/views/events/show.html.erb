@@ -25,6 +25,7 @@
           <%= link_to "Long", link_.merge(ordering: "long"), class: "filter #{@filters["ordering"] === "long" && "selected"}" %>
           <%= link_to "Common", link_.merge(ordering: "common"), class: "filter #{@filters["ordering"] === "common" && "selected"}" %>
           <%= link_to "Unique", link_.merge(ordering: "unique"), class: "filter #{@filters["ordering"] === "unique" && "selected"}" %>
+          <%= link_to "Likes", link_.merge(ordering: "likes", kind: "tweet"), class: "filter #{@filters["ordering"] === "likes" && "selected"}" %>
           <span>|</span>
           <%= link_to "SMS", link_.merge(kind: "sms"), class: "filter #{@filters["kind"] === "sms" && "selected"}" %>
           <%= link_to "Tweets", link_.merge(kind: "tweet"), class: "filter #{@filters["kind"] === "tweet" && "selected"}" %>

@@ -48,8 +48,8 @@ class Event < ApplicationRecord
   end
 
   def after_register
-    WordRankingJob.perform_in(1200, id)
-    TwitterSearchJob.perform_in(600, id) if self.hashtag.present?
+    WordRankingJob.perform_in(120, id)
+    TwitterSearchJob.perform_in(60, id) if self.hashtag.present?
   end
 
   def assign_broadcast_token

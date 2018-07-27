@@ -15,7 +15,7 @@ class WordRankingJob
   def perform_again?(event)
     # run every 20 minutes until event expires
     if event.session_expiry > Time.current
-      WordRankingJob.perform_in(1200, event.id)
+      WordRankingJob.perform_in(120, event.id)
     end
   end
 end

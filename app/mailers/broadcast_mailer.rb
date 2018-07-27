@@ -6,6 +6,6 @@ class BroadcastMailer < ActionMailer::Base
     broadcast = params[:broadcast]
     email  = params[:email]
     @link   = "#{ENV['BASE_URL']}/broadcasts/#{broadcast}"
-    mail(to: email, subject: 'Broadcast link from Harmonizer')
+    mail(to: email, subject: 'Broadcast link from Mic Stand')
   end
 end

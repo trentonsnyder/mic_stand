@@ -34,6 +34,8 @@ class Message < ApplicationRecord
       order("score DESC")
     elsif value == "unique"
       order("score ASC")
+    elsif value == "likes"
+      order("likes DESC")
     end
   end
 
