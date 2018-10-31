@@ -1,7 +1,7 @@
 class Event < ApplicationRecord
   belongs_to :user
   belongs_to :credit
-  belongs_to :phone_number
+  belongs_to :phone_number, -> { with_deleted }
 
   has_many :messages
 

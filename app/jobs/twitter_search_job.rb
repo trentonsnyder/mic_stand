@@ -6,13 +6,15 @@ class TwitterSearchJob
   def perform(event_id)
     event   = Event.find_by(id: event_id)
     client  = twitter_client
-    results = client.search("##{event.hashtag} -filter:retweets AND -filter:replies", result_type: "recent")
+    # tweet_mode: "extended", t.text -> t.full_text
+    # result_type -> might be best as "mixed"
+    results = client.search("#{event.hashtag} -filter:retweets AND -filter:replies", result_type: "recent")
     results.each do |t|
       # api premium search has datetime constraints, for now filter this side
       if t.created_at > event.created_at
         # check for existing tweets to update like count
         existing = Message.where(tweet_id: t.id)
-        if existing
+        if existing.any?
           existing.each { |f| f.update_columns(likes: t.favorite_count) }
         else
           event.messages.create(

@@ -9,7 +9,8 @@ class Message < ApplicationRecord
     length:   { minimum: 5, maximum: 333 }
   
   validates :tweet_id,
-    uniqueness: true
+    uniqueness: true,
+    allow_blank: true
 
   validates :from,
     presence:   true,
@@ -53,7 +54,7 @@ class Message < ApplicationRecord
 
   def set_score
     score_ = 0
-    sanitized_body = body.downcase.gsub(/([.,;?:!()])|(#[a-zA-Z0-9]*)|(^|[^@\w])@(\w{1,15})/, "").chomp.split(" ").uniq
+    sanitized_body = body.downcase.gsub(/([.,;?:!()])|(#[a-zA-Z0-9]*)|(^|[^@\w])@(\w{1,15})|(http?[\S]+)/, "").chomp.split(" ").uniq
     event.word_ranking.each { |k, v| score_ += v if sanitized_body.include?(k) }
     update_columns(score: score_)
   end

@@ -5,7 +5,7 @@ class Hooks::MessagesController < Hooks::BaseController
       filter_for_sms(params[:eventType])
       phone = find_phone(params[:to])
       event = find_event(phone.id)
-      message = event.messages.new(from: params[:from], body: params[:text])
+      message = event.messages.new(from: params[:from], body: params[:text], kind: 'sms')
       unless message.save
         Rails.logger.error("MESSAGE HOOK ERROR: Problem creating message #{message.errors.full_messages.join(', ')}")
       end
